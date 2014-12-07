@@ -177,7 +177,7 @@ class RandomColor
       {
         $hue = intval($options['hue']);
 
-        if ($hue < 360 && $hue > 0)
+        if ($hue < 360 && $hue >= 0)
         {
           return array($hue, $hue);
         }
@@ -234,7 +234,7 @@ class RandomColor
 
     foreach ($rgb as $c)
     {
-      $hex.= str_pad(dechex($c), 2, '0');
+      $hex.= str_pad(dechex($c), 2, '0', STR_PAD_LEFT);
     }
 
     return $hex;
@@ -270,9 +270,9 @@ class RandomColor
     $n = $v * (1 - $s * $f);
     $k = $v * (1 - $s * (1 - $f));
 
-    $r = 255;
-    $g = 255;
-    $b = 255;
+    $r = 1;
+    $g = 1;
+    $b = 1;
 
     switch ($i)
     {
