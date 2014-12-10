@@ -22,6 +22,8 @@ You can pass an options object to influence the type of color it produces. The o
 
 ```php
 
+use \Colors\RandomColor;
+
 // Returns a hex code for an attractive color
 RandomColor::one(); 
 

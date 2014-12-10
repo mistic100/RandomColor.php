@@ -1,0 +1,22 @@
+{
+    "name": "mistic100/randomcolor",
+    "description": "Generate attractive random colors",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [{
+        "name": "Damien \"Mistic\" Sorel",
+        "email": "contact@git.strangeplanet.fr",
+        "homepage": "http://www.strangeplanet.fr"
+    }],
+    "keywords": [
+        "color",
+        "random",
+        "generator"
+    ],
+    "homepage": "https://github.com/mistic100/RandomColor.php",
+    "autoload": {
+        "psr-4": {
+            "Colors\\": "src"
+        }
+    }
+}

@@ -1,5 +1,6 @@
 <?php
-include '../RandomColor.class.php';
+include '../src/RandomColor.php';
+use \Colors\RandomColor;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,19 +71,19 @@ include '../RandomColor.class.php';
   <?php $c = RandomColor::one(array('format'=>'hsv','luminosity'=>'dark')); ?>
   <pre>
 RandomColor::one(array('format'=>'hex'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::format($c, 'hex') . '"</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::hsv2hex($c) . '"</span>'; ?>
 
 
 RandomColor::one(array('format'=>'hsv'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace("/[\\r\\n ]+/", '', var_export($c, true)) . '</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export($c, true)) . '</span>'; ?>
 
 
 RandomColor::one(array('format'=>'hsl'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace("/[\\r\\n ]+/", '', var_export(RandomColor::format($c, 'hsl'), true)) . '</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::hsv2hsl($c), true)) . '</span>'; ?>
 
 
 RandomColor::one(array('format'=>'rgb'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace("/[\\r\\n ]+/", '', var_export(RandomColor::format($c, 'rgb'), true)) . '</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::hsv2rgb($c), true)) . '</span>'; ?>
 
 
 RandomColor::one(array('format'=>'hslCss'));

@@ -29,6 +29,8 @@
  * SOFTWARE.
  */
 
+namespace Colors;
+
 class RandomColor
 {
   static private $dictionary = null;
