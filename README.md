@@ -1,5 +1,7 @@
 # Random Color
 
+[![PHP version](https://badge.fury.io/ph/mistic100%2Frandomcolor.svg)](http://badge.fury.io/ph/mistic100%2Frandomcolor)
+
 For generating attractive random colors. 
 
 This is a PHP port of David Merfield [randomColor](https://github.com/davidmerfield/randomColor) Javascript utility.
