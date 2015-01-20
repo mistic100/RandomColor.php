@@ -1,13 +1,13 @@
 <?php
 /**
- * RandomColor 1.0.0
+ * RandomColor 1.0.1
  *
  * PHP port of David Merfield JavaScript randomColor
  * https://github.com/davidmerfield/randomColor
  *
  *
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014 Damien "Mistic" Sorel
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -16,10 +16,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -66,7 +66,7 @@ class RandomColor
     {
       case 'hsv':
         return $hsv;
-        
+
       case 'hsl':
         return self::hsv2hsl($hsv);
 
@@ -95,7 +95,7 @@ class RandomColor
       return 0;
     }
 
-    $hue = mt_rand($range[0], $range[1]);
+    $hue = self::_rand($range, $options);
 
     // Instead of storing red as two seperate ranges,
     // we group them, using negative numbers
@@ -111,7 +111,7 @@ class RandomColor
   {
     if (@$options['luminosity'] === 'random')
     {
-      return mt_rand(0, 100);
+      return self::_rand(array(0, 100), $options);
     }
     if (@$options['hue'] === 'monochrome')
     {
@@ -136,7 +136,7 @@ class RandomColor
         break;
     }
 
-    return mt_rand($range[0], $range[1]);
+    return self::_rand($range, $options);
   }
 
   static private function _pickBrightness($h, $s, $options)
@@ -164,7 +164,7 @@ class RandomColor
       }
     }
 
-    return mt_rand($range[0], $range[1]);
+    return self::_rand($range, $options);
   }
 
   static private function _getHueRange($options)
@@ -229,6 +229,18 @@ class RandomColor
     }
   }
 
+  static private function _rand($bounds, $options)
+  {
+    if (isset($options['prng']))
+    {
+      return $options['prng']($bounds[0], $bounds[1]);
+    }
+    else
+    {
+      return mt_rand($bounds[0], $bounds[1]);
+    }
+  }
+
   static public function hsv2hex($hsv)
   {
     $rgb = self::hsv2rgb($hsv);
@@ -241,15 +253,15 @@ class RandomColor
 
     return $hex;
   }
-  
+
   static public function hsv2hsl($hsv)
   {
     extract($hsv);
-    
+
     $s/= 100;
     $v/= 100;
     $k = (2-$s)*$v;
-    
+
     return array(
       'h' => $h,
       's' => round($s*$v / ($k < 1 ? $k : 2-$k), 4) * 100,
@@ -298,7 +310,7 @@ class RandomColor
         list($r,$g,$b) = array($v,$m,$n);
         break;
     }
-    
+
     return array(
       'r' => floor($r*255),
       'g' => floor($g*255),
