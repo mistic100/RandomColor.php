@@ -14,11 +14,13 @@ See the results on [the demo](http://www.strangeplanet.fr/work/RandomColor.php).
 
 You can pass an options object to influence the type of color it produces. The options object accepts the following properties:
 
-**Hue** – Controls the hue of the generated color. You can pass a string representing a color name (e.g. 'orange'). Possible color names are *red, orange, yellow, green, blue, purple, pink and monochrome*.
+**hue** – Controls the hue of the generated color. You can pass a string representing a color name (e.g. 'orange'). Possible color names are *red, orange, yellow, green, blue, purple, pink and monochrome*.
 
-**Luminosity** – Controls the luminosity of the generated color. You can pass a string containing *bright, light or dark*.
+**luminosity** – Controls the luminosity of the generated color. You can pass a string containing *bright, light or dark*.
 
-**Format** – A string which specifies the format of the generated color. Possible values are *hsv, hsl, hslCss, rgb, rgbCss, and hex*.
+**format** – A string which specifies the format of the generated color. Possible values are *hsv, hsl, hslCss, rgb, rgbCss, and hex*.
+
+**prng** – A random (or not) number generator. `mt_rand` is used as default one.
 
 ### Examples
 
