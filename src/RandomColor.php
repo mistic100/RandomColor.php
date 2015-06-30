@@ -1,6 +1,6 @@
 <?php
 /**
- * RandomColor 1.0.1
+ * RandomColor 1.0.2
  *
  * PHP port of David Merfield JavaScript randomColor
  * https://github.com/davidmerfield/randomColor
