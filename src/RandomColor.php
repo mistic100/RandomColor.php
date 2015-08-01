@@ -1,6 +1,6 @@
 <?php
 /**
- * RandomColor 1.0.2
+ * RandomColor 1.0.3
  *
  * PHP port of David Merfield JavaScript randomColor
  * https://github.com/davidmerfield/randomColor
@@ -33,14 +33,12 @@ namespace Colors;
 
 class RandomColor
 {
-  static private $dictionary = null;
+  static public $dictionary = null;
 
   private function __construct() {}
 
   static public function one($options = array())
   {
-    self::_loadDictionary();
-
     $h = self::_pickHue($options);
     $s = self::_pickSaturation($h, $options);
     $v = self::_pickBrightness($h, $s, $options);
@@ -317,64 +315,55 @@ class RandomColor
       'b' => floor($b*255),
       );
   }
-
-  static private function _loadDictionary()
-  {
-    if (!empty(self::$dictionary))
-    {
-      return;
-    }
-
-    self::$dictionary = array(
-      'monochrome' => array(
-        'hueRange' => 'null',
-        'lowerBounds' => '[[0,0],[100,0]]',
-        ),
-      'red' => array(
-        'hueRange' => '[-26,18]',
-        'lowerBounds' => '[[20,100],[30,92],[40,89],[50,85],[60,78],[70,70],[80,60],[90,55],[100,50]]',
-        ),
-      'orange' => array(
-        'hueRange' => '[19,46]',
-        'lowerBounds' => '[[20,100],[30,93],[40,88],[50,86],[60,85],[70,70],[100,70]]',
-        ),
-      'yellow' => array(
-        'hueRange' => '[47,62]',
-        'lowerBounds' => '[[25,100],[40,94],[50,89],[60,86],[70,84],[80,82],[90,80],[100,75]]',
-        ),
-      'green' => array(
-        'hueRange' => '[63,178]',
-        'lowerBounds' => '[[30,100],[40,90],[50,85],[60,81],[70,74],[80,64],[90,50],[100,40]]',
-        ),
-      'blue' => array(
-        'hueRange' => '[179, 257]',
-        'lowerBounds' => '[[20,100],[30,86],[40,80],[50,74],[60,60],[70,52],[80,44],[90,39],[100,35]]',
-        ),
-      'purple' => array(
-        'hueRange' => '[258, 282]',
-        'lowerBounds' => '[[20,100],[30,87],[40,79],[50,70],[60,65],[70,59],[80,52],[90,45],[100,42]]',
-        ),
-      'pink' => array(
-        'hueRange' => '[283, 334]',
-        'lowerBounds' => '[[20,100],[30,90],[40,86],[60,84],[80,80],[90,75],[100,73]]',
-        ),
-      );
-
-    foreach (self::$dictionary as &$color)
-    {
-      $color['hueRange'] = json_decode($color['hueRange'], true);
-      $color['lowerBounds'] = json_decode($color['lowerBounds'], true);
-
-      $color['saturationRange'] = array(
-        $color['lowerBounds'][0][0],
-        $color['lowerBounds'][count($color['lowerBounds'])-1][0],
-        );
-
-      $color['brightnessRange'] = array(
-        $color['lowerBounds'][count($color['lowerBounds'])-1][1],
-        $color['lowerBounds'][0][1],
-        );
-    }
-    unset($color);
-  }
 }
+
+RandomColor::$dictionary = array(
+  'monochrome' => array(
+    'hueRange' => NULL,
+    'lowerBounds' => array(array(0,0), array(100,0)),
+    'saturationRange' => array(0,100),
+    'brightnessRange' => array(0,0)
+    ),
+  'red' => array(
+    'hueRange' => array(-26,18),
+    'lowerBounds' => array(array(20,100),array(30,92),array(40,89),array(50,85),array(60,78),array(70,70),array(80,60),array(90,55),array(100,50)),
+    'saturationRange' => array(20,100),
+    'brightnessRange' => array(50,100)
+    ),
+  'orange' => array(
+    'hueRange' => array(19,46),
+    'lowerBounds' => array(array(20,100),array(30,93),array(40,88),array(50,86),array(60,85),array(70,70),array(100,70)),
+    'saturationRange' => array(20,100),
+    'brightnessRange' => array(70,100)
+    ),
+  'yellow' => array(
+    'hueRange' => array(47,62),
+    'lowerBounds' => array(array(25,100),array(40,94),array(50,89),array(60,86),array(70,84),array(80,82),array(90,80),array(100,75)),
+    'saturationRange' => array(25,100),
+    'brightnessRange' => array(75,100)
+    ),
+  'green' => array(
+    'hueRange' => array(63,178),
+    'lowerBounds' => array(array(30,100),array(40,90),array(50,85),array(60,81),array(70,74),array(80,64),array(90,50),array(100,40)),
+    'saturationRange' => array(30,100),
+    'brightnessRange' => array(40,100)
+    ),
+  'blue' => array(
+    'hueRange' => array(179,257),
+    'lowerBounds' => array(array(20,100),array(30,86),array(40,80),array(50,74),array(60,60),array(70,52),array(80,44),array(90,39),array(100,35)),
+    'saturationRange' => array(20,100),
+    'brightnessRange' => array(35,100)
+    ),
+  'purple' => array(
+    'hueRange' => array(258,282),
+    'lowerBounds' => array(array(20,100),array(30,87),array(40,79),array(50,70),array(60,65),array(70,59),array(80,52),array(90,45),array(100,42)),
+    'saturationRange' => array(20,100),
+    'brightnessRange' => array(42,100)
+    ),
+  'pink' => array(
+    'hueRange' => array(283,334),
+    'lowerBounds' => array(array(20,100),array(30,90),array(40,86),array(60,84),array(80,80),array(90,75),array(100,73)),
+    'saturationRange' => array(20,100),
+    'brightnessRange' => array(73,100)
+    )
+  );
