@@ -151,6 +151,14 @@ RandomColor::one(array('format'=>'rgbCss'));
   ?>
   </div>
   
+  <h3>Multiple colors</h3>
+  <pre>RandomColor::many(27, array('hue'=>array('blue', 'yellow')));</pre>
+  <div class="output">
+  <?php
+  foreach (RandomColor::many(27, array('hue'=>array('blue', 'yellow'))) as $c) echo '<span style="background:' . $c . ';"></span>';
+  ?>
+  </div>
+  
   <h3>Light colors</h3>
   <pre>RandomColor::many(27, array('luminosity'=>'light'));</pre>
   <div class="output">

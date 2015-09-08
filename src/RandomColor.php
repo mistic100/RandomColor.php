@@ -88,14 +88,14 @@ class RandomColor
   {
     $range = self::_getHueRange($options);
 
-    if ($range === null)
+    if (empty($range))
     {
       return 0;
     }
 
     $hue = self::_rand($range, $options);
 
-    // Instead of storing red as two seperate ranges,
+    // Instead of storing red as two separate ranges,
     // we group them, using negative numbers
     if ($hue < 0)
     {
@@ -117,7 +117,7 @@ class RandomColor
     }
 
     $colorInfo = self::_getColorInfo($h);
-    $range = $colorInfo['saturationRange'];
+    $range = $colorInfo['s'];
 
     switch (@$options['luminosity'])
     {
@@ -167,30 +167,55 @@ class RandomColor
 
   static private function _getHueRange($options)
   {
+    $ranges = array();
+
     if (isset($options['hue']))
     {
-      if (isset(self::$dictionary[$options['hue']]))
+      if (!is_array($options['hue']))
       {
-        return self::$dictionary[$options['hue']]['hueRange'];
+        $options['hue'] = array($options['hue']);
       }
-      else if (is_numeric($options['hue']))
-      {
-        $hue = intval($options['hue']);
 
-        if ($hue < 360 && $hue >= 0)
+      foreach ($options['hue'] as $hue)
+      {
+        if ($hue === 'random')
         {
-          return array($hue, $hue);
+          $ranges[] = array(0, 360);
+        }
+        else if (isset(self::$dictionary[$hue]))
+        {
+          $ranges[] = self::$dictionary[$hue]['h'];
+        }
+        else if (is_numeric($hue))
+        {
+          $hue = intval($hue);
+
+          if ($hue <= 360 && $hue >= 0)
+          {
+            $ranges[] = array($hue, $hue);
+          }
         }
       }
     }
 
-    return array(0, 360);
+    if (($l = count($ranges)) === 0)
+    {
+      return array(0, 360);
+    }
+    else if ($l === 1)
+    {
+      return $ranges[0];
+    }
+    else
+    {
+      return $ranges[self::_rand(array(0, $l-1), $options)];
+    }
   }
 
   static private function _getMinimumBrightness($h, $s)
   {
     $colorInfo = self::_getColorInfo($h);
-    $bounds = $colorInfo['lowerBounds'];
+    $bounds = $colorInfo['bounds'];
 
     for ($i = 0, $l = count($bounds); $i < $l - 1; $i++)
     {
@@ -220,7 +245,7 @@ class RandomColor
 
     foreach (self::$dictionary as $color)
     {
-      if ($color['hueRange'] !== null && $h >= $color['hueRange'][0] && $h <= $color['hueRange'][1])
+      if ($color['h'] !== null && $h >= $color['h'][0] && $h <= $color['h'][1])
       {
         return $color;
       }
@@ -317,53 +342,49 @@ class RandomColor
   }
 }
 
+/*
+ * h=hueRange
+ * s=saturationRange : bounds[0][0] ; bounds[-][0]
+ */
 RandomColor::$dictionary = array(
   'monochrome' => array(
-    'hueRange' => NULL,
-    'lowerBounds' => array(array(0,0), array(100,0)),
-    'saturationRange' => array(0,100),
-    'brightnessRange' => array(0,0)
+    'bounds' => array(array(0,0), array(100,0)),
+    'h' => NULL,
+    's' => array(0,100)
     ),
   'red' => array(
-    'hueRange' => array(-26,18),
-    'lowerBounds' => array(array(20,100),array(30,92),array(40,89),array(50,85),array(60,78),array(70,70),array(80,60),array(90,55),array(100,50)),
-    'saturationRange' => array(20,100),
-    'brightnessRange' => array(50,100)
+    'bounds' => array(array(20,100),array(30,92),array(40,89),array(50,85),array(60,78),array(70,70),array(80,60),array(90,55),array(100,50)),
+    'h' => array(-26,18),
+    's' => array(20,100)
     ),
   'orange' => array(
-    'hueRange' => array(19,46),
-    'lowerBounds' => array(array(20,100),array(30,93),array(40,88),array(50,86),array(60,85),array(70,70),array(100,70)),
-    'saturationRange' => array(20,100),
-    'brightnessRange' => array(70,100)
+    'bounds' => array(array(20,100),array(30,93),array(40,88),array(50,86),array(60,85),array(70,70),array(100,70)),
+    'h' => array(19,46),
+    's' => array(20,100)
     ),
   'yellow' => array(
-    'hueRange' => array(47,62),
-    'lowerBounds' => array(array(25,100),array(40,94),array(50,89),array(60,86),array(70,84),array(80,82),array(90,80),array(100,75)),
-    'saturationRange' => array(25,100),
-    'brightnessRange' => array(75,100)
+    'bounds' => array(array(25,100),array(40,94),array(50,89),array(60,86),array(70,84),array(80,82),array(90,80),array(100,75)),
+    'h' => array(47,62),
+    's' => array(25,100)
     ),
   'green' => array(
-    'hueRange' => array(63,178),
-    'lowerBounds' => array(array(30,100),array(40,90),array(50,85),array(60,81),array(70,74),array(80,64),array(90,50),array(100,40)),
-    'saturationRange' => array(30,100),
-    'brightnessRange' => array(40,100)
+    'bounds' => array(array(30,100),array(40,90),array(50,85),array(60,81),array(70,74),array(80,64),array(90,50),array(100,40)),
+    'h' => array(63,178),
+    's' => array(30,100)
     ),
   'blue' => array(
-    'hueRange' => array(179,257),
-    'lowerBounds' => array(array(20,100),array(30,86),array(40,80),array(50,74),array(60,60),array(70,52),array(80,44),array(90,39),array(100,35)),
-    'saturationRange' => array(20,100),
-    'brightnessRange' => array(35,100)
+    'bounds' => array(array(20,100),array(30,86),array(40,80),array(50,74),array(60,60),array(70,52),array(80,44),array(90,39),array(100,35)),
+    'h' => array(179,257),
+    's' => array(20,100)
     ),
   'purple' => array(
-    'hueRange' => array(258,282),
-    'lowerBounds' => array(array(20,100),array(30,87),array(40,79),array(50,70),array(60,65),array(70,59),array(80,52),array(90,45),array(100,42)),
-    'saturationRange' => array(20,100),
-    'brightnessRange' => array(42,100)
+    'bounds' => array(array(20,100),array(30,87),array(40,79),array(50,70),array(60,65),array(70,59),array(80,52),array(90,45),array(100,42)),
+    'h' => array(258,282),
+    's' => array(20,100)
     ),
   'pink' => array(
-    'hueRange' => array(283,334),
-    'lowerBounds' => array(array(20,100),array(30,90),array(40,86),array(60,84),array(80,80),array(90,75),array(100,73)),
-    'saturationRange' => array(20,100),
-    'brightnessRange' => array(73,100)
+    'bounds' => array(array(20,100),array(30,90),array(40,86),array(60,84),array(80,80),array(90,75),array(100,73)),
+    'h' => array(283,334),
+    's' => array(20,100)
     )
   );
