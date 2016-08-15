@@ -58,7 +58,7 @@ class RandomColor
     return $colors;
   }
 
-  static public function format($hsv, $format='hex')
+  static public function format($hsv, $format='hex', $opacity='1.0')
   {
     switch ($format)
     {
@@ -77,6 +77,9 @@ class RandomColor
 
       case 'rgbCss':
         return 'rgb(' . implode(',', self::hsv2rgb($hsv)) . ')';
+      
+      case 'rgbaCss':
+        return 'rgba(' . implode(',', self::hsv2rgb($hsv)) . ',' . $opacity . ')';
 
       case 'hex':
       default:
