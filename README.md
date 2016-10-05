@@ -62,7 +62,8 @@ RandomColor::one(array(
 
 ### Other languages
 
-RandomColor is available in [JavaScript](https://github.com/davidmerfield/randomColor), [c#](https://github.com/nathanpjones/randomColorSharped) and [go](https://github.com/hansrodtang/randomcolor).
+RandomColor is available in [JavaScript](https://github.com/davidmerfield/randomColor), [C#](https://github.com/nathanpjones/randomColorSharped), [Go](https://github.com/hansrodtang/randomcolor), [Python](https://github.com/kevinwuhoo/randomcolor-py), [Swift](https://github.com/onevcat/RandomColorSwift), [Objective-C](https://github.com/yageek/randomColor), [Java](https://github.com/lzyzsd/AndroidRandomColor) and 
+[R](https://github.com/ronammar/randomcoloR).
 
 ### License
 
