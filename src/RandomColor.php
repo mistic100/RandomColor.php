@@ -107,13 +107,13 @@ class RandomColor
 
   static private function _pickSaturation($h, $options)
   {
-    if (@$options['luminosity'] === 'random')
-    {
-      return self::_rand(array(0, 100), $options);
-    }
     if (@$options['hue'] === 'monochrome')
     {
       return 0;
+    }
+    if (@$options['luminosity'] === 'random')
+    {
+      return self::_rand(array(0, 100), $options);
     }
 
     $colorInfo = self::_getColorInfo($h);
