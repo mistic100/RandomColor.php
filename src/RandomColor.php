@@ -260,7 +260,7 @@ class RandomColor
     }
     else
     {
-      return mt_rand($bounds[0], $bounds[1]);
+      return mt_rand(round($bounds[0]), round($bounds[1]));
     }
   }
 
