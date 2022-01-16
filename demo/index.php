@@ -11,10 +11,6 @@ use \Colors\RandomColor;
   <title>Random Color generator for PHP</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   
   <style>
   .container { max-width:600px; }

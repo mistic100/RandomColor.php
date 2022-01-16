@@ -1,6 +1,6 @@
 <?php
 /**
- * RandomColor 1.0.4
+ * RandomColor 1.0.5
  *
  * PHP port of David Merfield JavaScript randomColor
  * https://github.com/davidmerfield/randomColor
@@ -8,7 +8,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014 Damien "Mistic" Sorel
+ * Copyright (c) 2014-2022 Damien "Mistic" Sorel
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
