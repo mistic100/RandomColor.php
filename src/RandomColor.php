@@ -157,7 +157,7 @@ class RandomColor
           break;
 
         case 'light':
-          $range[0] = ($range[1] + $range[0]) / 2;
+          $range[0] = round(($range[1] + $range[0]) / 2);
           break;
       }
     }
@@ -228,7 +228,7 @@ class RandomColor
       {
         $m = ($v2 - $v1) / ($s2 - $s1);
         $b = $v1 - $m * $s1;
-        return $m * $s + $b;
+        return round($m * $s + $b);
       }
     }
 
