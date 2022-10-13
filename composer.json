@@ -1,7 +1,7 @@
 {
     "name": "mistic100/randomcolor",
     "description": "Generate attractive random colors",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "license": "MIT",
     "authors": [{
         "name": "Damien \"Mistic\" Sorel",
