@@ -39,6 +39,7 @@ class RandomColor
 
   static public function one($options = array())
   {
+    $options = array_merge(['format' => '', 'hue' => [], 'luminosity' => ''], $options);
     $h = self::_pickHue($options);
     $s = self::_pickSaturation($h, $options);
     $v = self::_pickBrightness($h, $s, $options);
