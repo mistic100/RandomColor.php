@@ -35,30 +35,30 @@ RandomColor::one();
 
 // Returns an array of ten green colors
 RandomColor::many(10, array(
-   'hue' => 'green'
+   'hue' => 'green',
 ));
 
 // Returns a hex code for a light blue
 RandomColor::one(array(
    'luminosity' => 'light',
-   'hue' => 'blue'
+   'hue' => 'blue',
 ));
 
 // Returns one yellow or blue color
 RandomColors::one(array(
-    'hue' => array('yellow', 'blue')
+    'hue' => array('yellow', 'blue'),
 ));
 
 // Returns a hex code for a 'truly random' color
 RandomColor::one(array(
    'luminosity' => 'random',
-   'hue' => 'random'
+   'hue' => 'random',
 ));
 
 // Returns a bright color in RGB
 RandomColor::one(array(
    'luminosity' => 'bright',
-   'format' => 'rgbCss' // e.g. 'rgb(225,200,20)'
+   'format' => 'rgbCss', // e.g. 'rgb(225,200,20)'
 ));
 
 // Returns a RGB color with random alpha
@@ -75,7 +75,7 @@ RandomColor::one(array(
 
 ### Other languages
 
-RandomColor is available in [JavaScript](https://github.com/davidmerfield/randomColor), [C#](https://github.com/nathanpjones/randomColorSharped), [C++](https://github.com/xuboying/randomcolor-cpp), [Go](https://github.com/hansrodtang/randomcolor), [Haskell](http://hackage.haskell.org/package/palette-0.3/docs/Data-Colour-Palette-RandomColor.html), [Kotlin](https://github.com/brian-norman/RandomKolor), [Mathematica](https://github.com/yuluyan/PrettyRandomColor), [Python](https://github.com/kevinwuhoo/randomcolor-py), [Swift](https://github.com/onevcat/RandomColorSwift), [Perl6](https://github.com/Xliff/p6-RandomColor), [Objective-C](https://github.com/yageek/randomColor), [Java](https://github.com/lzyzsd/AndroidRandomColor), [R](https://github.com/ronammar/randomcoloR), [Reason](https://github.com/ktrzos/bs-randomColor), [Dart](https://github.com/DAMMAK/RandomColorDart), [Ruby](https://github.com/khash/random_color) and [Rust](https://github.com/elementh/random_color)
+RandomColor is available in [JavaScript](https://github.com/davidmerfield/randomColor), [C#](https://github.com/nathanpjones/randomColorSharped), [C++](https://github.com/xuboying/randomcolor-cpp), [Go](https://github.com/hansrodtang/randomcolor), [Haskell](http://hackage.haskell.org/package/palette-0.3/docs/Data-Colour-Palette-RandomColor.html), [Kotlin](https://github.com/brian-norman/RandomKolor), [Mathematica](https://github.com/yuluyan/PrettyRandomColor), [Python](https://github.com/kevinwuhoo/randomcolor-py), [Swift](https://github.com/onevcat/RandomColorSwift), [Perl6](https://github.com/Xliff/p6-RandomColor), [Objective-C](https://github.com/yageek/randomColor), [Java](https://github.com/lzyzsd/AndroidRandomColor), [R](https://github.com/ronammar/randomcoloR), [Reason](https://github.com/ktrzos/bs-randomColor), [Dart](https://github.com/DAMMAK/RandomColorDart), [Ruby](https://github.com/khash/random_color), [Rust](https://github.com/elementh/random_color) and [Swift](https://github.com/onevcat/RandomColorSwift).
 
 ### License
 
