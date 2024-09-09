@@ -1,6 +1,6 @@
 <?php
 /**
- * RandomColor 1.0.5
+ * RandomColor 1.0.7
  *
  * PHP port of David Merfield JavaScript randomColor
  * https://github.com/davidmerfield/randomColor
@@ -8,7 +8,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2014-2022 Damien "Mistic" Sorel
+ * Copyright (c) 2014-2024 Damien "Mistic" Sorel
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,8 +43,9 @@ class RandomColor
     $h = self::_pickHue($options);
     $s = self::_pickSaturation($h, $options);
     $v = self::_pickBrightness($h, $s, $options);
+    $a = self::_pickAlpha($options);
 
-    return self::format(compact('h','s','v'), @$options['format']);
+    return self::format(compact('h','s','v','a'), $options['format']);
   }
 
   static public function many($count, $options = array())
@@ -59,29 +60,74 @@ class RandomColor
     return $colors;
   }
 
-  static public function format($hsv, $format='hex')
+  static public function format($hsva, $format='hex')
   {
     switch ($format)
     {
       case 'hsv':
-        return $hsv;
+        unset($hsva['a']);
+        return $hsva;
+
+      case 'hsva':
+        return $hsva;
 
       case 'hsl':
-        return self::hsv2hsl($hsv);
+        return self::hsv2hsl($hsva);
+
+      case 'hsla':
+        $hsl = self::hsv2hsl($hsva);
+        $hsl['a'] = $hsva['a'];
+        return $hsl;
 
       case 'hslCss':
-        $hsl = self::hsv2hsl($hsv);
+        $hsl = self::hsv2hsl($hsva);
         return 'hsl(' . $hsl['h'] . ',' . $hsl['s'] . '%,' . $hsl['l'] . '%)';
 
+      case 'hslaCss':
+        $hsl = self::hsv2hsl($hsva);
+        return 'hsla(' . $hsl['h'] . ',' . $hsl['s'] . '%,' . $hsl['l'] . '%,' . $hsva['a'] . ')';
+
       case 'rgb':
-        return self::hsv2rgb($hsv);
+        return self::hsv2rgb($hsva);
+
+      case 'rgba':
+        $rgb = self::hsv2rgb($hsva);
+        $rgb['a'] = $hsva['a'];
+        return $rgb;
 
       case 'rgbCss':
-        return 'rgb(' . implode(',', self::hsv2rgb($hsv)) . ')';
+        $rgb = self::hsv2rgb($hsva);
+        return 'rgb(' . implode(',', $rgb) . ')';
+
+      case 'rgbaCss':
+        $rgb = self::hsv2rgb($hsva);
+        return 'rgba(' . implode(',', $rgb) . ',' . $hsva['a'] . ')';
 
       case 'hex':
+        return self::hsv2hex($hsva);
+
+      case 'hexa':
+        $hex = self::hsv2hex($hsva);
+        return $hex . self::_intToHex($hsva['a']*255);
+
       default:
-        return self::hsv2hex($hsv);
+        return self::hsv2hex($hsva);
+    }
+  }
+
+  static private function _pickAlpha($options)
+  {
+    if (!str_contains($options['format'], 'a'))
+    {
+      return 1;
+    }
+    else if (isset($options['alpha']))
+    {
+      return $options['alpha'];
+    }
+    else
+    {
+      return self::_rand(array(0, 1000), $options) / 1000;
     }
   }
 
@@ -272,10 +318,15 @@ class RandomColor
 
     foreach ($rgb as $c)
     {
-      $hex.= str_pad(dechex($c), 2, '0', STR_PAD_LEFT);
+      $hex.= self::_intToHex($c);
     }
 
     return $hex;
+  }
+
+  static private function _intToHex($val)
+  {
+    return str_pad(dechex($val), 2, '0', STR_PAD_LEFT);
   }
 
   static public function hsv2hsl($hsv)

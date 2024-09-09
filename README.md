@@ -18,7 +18,9 @@ You can pass an options object to influence the type of color it produces. The o
 
 **luminosity** – Controls the luminosity of the generated color. You can pass a string containing *bright, light or dark*.
 
-**format** – A string which specifies the format of the generated color. Possible values are *hsv, hsl, hslCss, rgb, rgbCss, and hex*.
+**alpha** – A decimal between 0 and 1. Only relevant when using a format with an alpha channel. Defaults to a random value.
+
+**format** – A string which specifies the format of the generated color. Possible values are *hsv, hsl, hslCss, rgb, rgbCss, hex* and their alpha variants *hsva, hsla, hlsaCss, rgba, rgbaCss, hexa*. Defaults to *hex*.
 
 **prng** – A random (or not) number generator. `mt_rand` is used as default one.
 
@@ -57,6 +59,17 @@ RandomColor::one(array(
 RandomColor::one(array(
    'luminosity' => 'bright',
    'format' => 'rgbCss' // e.g. 'rgb(225,200,20)'
+));
+
+// Returns a RGB color with random alpha
+RandomColor::one(array(
+   'format': 'rgbaCss', // e.g. 'rgba(9, 1, 107, 0.648)'
+));
+
+// Returns an hex color with specified alpha
+RandomColor::one(array(
+   'format': 'hexa',
+   'alpha': 0.5, // e.g.: #c17d3480
 ));
 ```
 

@@ -14,7 +14,7 @@ use \Colors\RandomColor;
   
   <style>
   .container { max-width:600px; }
-  p { margin-top:1em font-size:1.2em; color:#555; }
+  p { margin-top:1em; font-size:1.2em; color:#555; }
   h2, h3, pre { margin-top:2em; }
   .output span { display:inline-block; width:47px; height:47px; margin:8px; border-radius:50%; }
   .footer { padding-top:40px; padding-bottom:40px; margin-top:40px; border-top:1px solid #EEE; }
@@ -66,20 +66,20 @@ use \Colors\RandomColor;
   <h3>Format</h3>
   <?php $c = RandomColor::one(array('format'=>'hsv','luminosity'=>'dark')); ?>
   <pre>
-RandomColor::one(array('format'=>'hex'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::hsv2hex($c) . '"</span>'; ?>
+  RandomColor::one(array('format'=>'hex'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::format($c, 'hex') . '"</span>'; ?>
 
 
 RandomColor::one(array('format'=>'hsv'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export($c, true)) . '</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::format($c, 'hsv'), true)) . '</span>'; ?>
 
 
 RandomColor::one(array('format'=>'hsl'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::hsv2hsl($c), true)) . '</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::format($c, 'hsl'), true)) . '</span>'; ?>
 
 
 RandomColor::one(array('format'=>'rgb'));
-  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::hsv2rgb($c), true)) . '</span>'; ?>
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::format($c, 'rgb'), true)) . '</span>'; ?>
 
 
 RandomColor::one(array('format'=>'hslCss'));
@@ -88,6 +88,30 @@ RandomColor::one(array('format'=>'hslCss'));
 
 RandomColor::one(array('format'=>'rgbCss'));
   <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::format($c, 'rgbCss') . '"</span>'; ?>
+
+
+RandomColor::one(array('format'=>'hexa'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::format($c, 'hexa') . '"</span>'; ?>
+
+
+RandomColor::one(array('format'=>'hsva'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::format($c, 'hsva'), true)) . '</span>'; ?>
+
+
+RandomColor::one(array('format'=>'hsla'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::format($c, 'hsla'), true)) . '</span>'; ?>
+
+
+RandomColor::one(array('format'=>'rgba'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// ' . preg_replace('/\s+|,\s+(\))/', '$1', var_export(RandomColor::format($c, 'rgba'), true)) . '</span>'; ?>
+
+
+RandomColor::one(array('format'=>'hslaCss'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::format($c, 'hslaCss') . '"</span>'; ?>
+
+
+RandomColor::one(array('format'=>'rgbaCss'));
+  <?php echo '<span style="color:' . RandomColor::hsv2hex($c) . ';">// "' . RandomColor::format($c, 'rgbaCss') . '"</span>'; ?>
 </pre>
   
   <h3>Similar colors</h3>
@@ -176,6 +200,14 @@ RandomColor::one(array('format'=>'rgbCss'));
   <div class="output">
   <?php
   foreach (RandomColor::many(36, array('luminosity'=>'random', 'hue'=>'random')) as $c) echo '<span style="background:' . $c . ';"></span>';
+  ?>
+  </div>
+  
+  <h3>Random alpha</h3>
+  <pre>RandomColor::many(18, array('format' => 'rgbaCss'));</pre>
+  <div class="output">
+  <?php
+  foreach (RandomColor::many(18, array('format' => 'rgbaCss')) as $c) echo '<span style="background:' . $c . ';"></span>';
   ?>
   </div>
   
